@@ -6,7 +6,6 @@ PURSFILE="$SRCDIR/ModuleNames.purs"
 cat >$PURSFILE <<HEADER
 module ModuleNames where
 
-import Erl.Atom (atom)
 import Erl.ModuleName (ModuleName(..))
 
 HEADER
