@@ -7,10 +7,10 @@ import Data.String.CodeUnits (drop, take)
 import Erl.Atom (Atom, atom, toString)
 
 -- | A PureScript module name e.g. Foo.Bar
-newtype ModuleName = ModuleName Atom
+newtype ModuleName = ModuleName String
 
 moduleName :: String -> ModuleName
-moduleName = ModuleName <<< atom
+moduleName = ModuleName
 
 -- | Name of an actual Erlang module e.g. foo_bar
 newtype NativeModuleName = NativeModuleName Atom
@@ -23,7 +23,7 @@ instance showNativeModuleName :: Show NativeModuleName where
 
 nativeModuleName :: ModuleName -> NativeModuleName
 nativeModuleName (ModuleName mn) =
-  let name = toString mn
+  let name = mn
       modules = split (Pattern ".") name
       updateModule mod = toLower (take 1 mod) <> drop 1 mod
   in
