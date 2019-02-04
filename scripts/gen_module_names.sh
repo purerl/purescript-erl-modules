@@ -4,10 +4,9 @@ MODULES=$(find "$SRCDIR" -name \*.purs -exec sed -rn '/^--/d; s/^module\s+([^ ]+
 
 PURSFILE="$SRCDIR/ModuleNames.purs"
 cat >$PURSFILE <<HEADER
-module ModuleNames where
+module ${2:-ModuleNames} where
 
 import Erl.ModuleName (ModuleName(..))
-
 HEADER
 
 for MODULE in $MODULES; do
