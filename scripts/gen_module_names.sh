@@ -1,6 +1,6 @@
 #!/bin/bash
 SRCDIR=${1:-src}
-MODULES=$(find "$SRCDIR" -name \*.purs -exec sed -rn '/^--/d; s/^module\s+([^ ]+)(\s+.*|$)/\1/p; T q ; q0; :q q1;' \{\} \;)
+MODULES=$(find "$SRCDIR" -name \*.purs -exec sed -rn '/^--/d; s/^module\s+([^ ]+)(\s+.*|$)/\1/p; T q ; q0; :q q1;' \{\} \;|sort)
 
 PURSFILE="$SRCDIR/ModuleNames.purs"
 cat >$PURSFILE <<HEADER
@@ -10,6 +10,9 @@ import Erl.ModuleName (ModuleName(..))
 HEADER
 
 for MODULE in $MODULES; do
+    if [ "$MODULE" == "ModuleNames" ]; then
+        continue
+    fi
     MODULE_TYPE=$(echo "$MODULE" | sed 's/\.//g')
     MODULE_IDENT=$(echo "$MODULE_TYPE" | sed -e 's/./\l\0/')
     cat >> $PURSFILE <<END
