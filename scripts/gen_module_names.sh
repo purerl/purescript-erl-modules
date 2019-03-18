@@ -1,6 +1,6 @@
 #!/bin/bash
 SRCDIR=${1:-src}
-MODULES=$(find "$SRCDIR" -name \*.purs -exec sed -rn '/^--/d; s/^module\s+([^ ]+)(\s+.*|$)/\1/p; T q ; q0; :q q1;' \{\} \;|sort)
+MODULES=$(find "$SRCDIR" -name \*.purs -exec sed -rn '/^--/d; s/^module\s+([^ ]+)(\s+.*|$)/\1/p; T q ; q0; :q q1;' \{\} \;|sort -f)
 
 PURSFILE="$SRCDIR/ModuleNames.purs"
 cat >$PURSFILE <<HEADER
